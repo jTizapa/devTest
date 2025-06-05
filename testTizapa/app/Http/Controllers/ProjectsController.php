@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectsStoreRequest;
 use App\Http\Requests\ProjectsUpdateRequest;
 use App\Models\Project;
-use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
@@ -14,16 +13,12 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return Project::all();
-    }
+        $user_id = auth()->id();
+        $data =  Project::where('user_id', $user_id)
+            ->get();
+         return response()->json(["error" => false, "data" => $data],200);
+    }//
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,9 +29,10 @@ class ProjectsController extends Controller
         $project->name = $request->name;
         $project->description = $request->description;
         $project->status = $request->status;
+        $project->user_id = auth()->id();
         $project->save();
 
-        return response()->json(["error" => "", "message" => "creado correctamente"],200);
+        return response()->json(["error" => false, "message" => "creado correctamente"],200);
     }
 
     /**
@@ -70,7 +66,7 @@ class ProjectsController extends Controller
         $project->status = $request->status ;
         $project->save();
 
-        return response()->json(["error" => "", "message" => "Modificado correctamente"],200);
+        return response()->json(["error" => false, "message" => "Modificado correctamente"],200);
     }
 
     /**

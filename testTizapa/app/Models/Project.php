@@ -10,11 +10,15 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id', 'name', 'description', 'status'
+        'id', 'name', 'description', 'status', 'user_id'
     ];
 
     public function task()
     {
         return $this->hasMany(Task::class,'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -20,11 +20,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $taks = new Task ();
-        $taks->name = $request->name;
-        $taks->description = $request->description;
-        $taks->status = $request->status;
-        $taks->save();
+        $task = new Task ();
+        $task->project_id = $request->project_id;
+        $task->title = $request->title;
+        $task->completed = $request->completed;
+        $task->due_date = $request->due_date;
+        $task->save();
 
         return response()->json(["error" => "", "message" => "creado correctamente"],200);
     }
@@ -54,11 +55,12 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $Task = Task::find($id);
-        $Task->name = $request->name;
-        $Task->description = $request->description;
-        $Task->status = $request->status ;
-        $Task->save();
+        $task = Task::find($id);
+        $task->project_id = $request->project_id;
+        $task->title = $request->title;
+        $task->completed = $request->completed;
+        $task->due_date = $request->due_date;
+        $task->save();
 
         return response()->json(["error" => "", "message" => "Modificado correctamente"],200);
     }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
@@ -21,14 +21,12 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 
-Route::group(['prefix' => 'project'], function () {
-  Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::resource('project', TaskController::class);
-  });
-});
 
-Route::group(['prefix' => 'task'], function () {
   Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::resource('task', ProjectsController::class);
+    Route::resource('project', ProjectsController::class);
   });
-});
+
+
+  Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::resource('task', TaskController::class);
+  });
